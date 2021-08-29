@@ -9,12 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class KltApplication {
 
-    /**
-     * start point
-     *
-     * @param args system arguments
-     */
-    public static void main(String[] args) {
-        SpringApplication.run(KltApplication.class, args);
-    }
+	/**
+	 * start point
+	 *
+	 * @param args system arguments
+	 */
+	public static void main(String[] args) {
+		SpringApplication.run(KltApplication.class, args);
+	}
 }
