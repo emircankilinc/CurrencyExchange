@@ -6,3 +6,9 @@ server:
   port: 8080
   servlet:
     context-path: /klt
+    
+exchange:
+  api:
+    cache.expiry: 60    
+    url: http://api.exchangeratesapi.io/v1/latest
+    access_key: 83d85a4f7f2a437cb52bfa98a7d51dfd    
