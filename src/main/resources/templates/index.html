@@ -1,12 +1,75 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="de">
-<head>
-    <meta charset="UTF-8">
-    <title th:text="${title}">KuK KLT</title>
-</head>
-<body>
-<h1 th:text="${welcome}"></h1>
-
-<h2 th:text="${applicationTitle}"></h2>
-</body>
+   <head>
+      <meta charset="UTF-8">
+      <title th:text="${title}">KuK KLT</title>
+   </head>
+   <body>
+      <h1 th:text="${welcome}"></h1>
+      <h2 th:text="${applicationTitle}"></h2>
+      <div class="container">
+         <div class="row">
+            <div>
+               <form action="#" th:object="${currencyModel}" method="post"
+                  id="conversionForm" role="form" data-toggle="validator">
+                  <div class="row">
+                     <div>
+                        <div class="form-group">
+                           <input type="text" class="form-control" id="sourceAmount"
+                              name="sourceAmount" placeholder="" th:field="*{sourceAmount}" />
+                        </div>
+                     </div>
+                     <div>
+                        <div class="form-group">
+                           <select class="selectpicker show-tick form-control"
+                              id="sourceCurrency" name="sourceCurrency"
+                              th:field="*{sourceCurrency}">
+                              <option
+                                 th:each="currencyEnum : ${currencyModel.getSupportedCurrencies()}"
+                                 th:value="${currencyEnum}"
+                                 th:text="${currencyEnum + ' - ' +currencyEnum.getDescription()}">Options</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div>
+                        <div class="form-group">
+                           <select class="selectpicker show-tick form-control"
+                              id="targetCurrency" name="targetCurrency"
+                              th:field="*{targetCurrency}">
+                              <option
+                                 th:each="currencyEnum : ${currencyModel.getSupportedCurrencies()}"
+                                 th:value="${currencyEnum}"
+                                 th:text="${currencyEnum + ' - ' +currencyEnum.getDescription()}">Options</option>
+                           </select>
+                        </div>
+                     </div>
+                     <div>
+                        <div class="form-group">
+                           <input type="text" class="form-control" id="targetAmount"
+                              name="targetAmount" placeholder="" th:field="*{targetAmount}" />
+                        </div>
+                     </div>
+                  </div>
+                  <div class="row">
+                     <div>
+                        <button type="button" id="btnConvert" name="btnConvert" class="btn btn-primary">Convert</button>
+                     </div>
+                  </div>
+               </form>
+            </div>
+         </div>
+         <div class="row">
+            <div>
+               <div role="alert" id="divAlert">
+               </div>
+            </div>
+         </div>
+      </div>
+      <input type="hidden" th:value="@{/convert}" id="urlConverter" />
+      <script
+         src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"></script>
+      <script
+         src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+      <script type="text/javascript" th:src="@{/js/index.js}"></script>
+   </body>
 </html>
