@@ -63,21 +63,24 @@ public class CurrencyExchangeCallService implements ICurrencyExchangeCallService
 
 		// initialize restTemplate
 		RestTemplate restTemplate = new RestTemplate();
-		
-		//call rest api
+
+		// call rest api
 		ExchangeRates rates = restTemplate.getForObject(uriComponents.toUri(), ExchangeRates.class);
 
-		//if calling rest api is success then calculating currency with source,target  and amount information
+		// if calling rest api is success then calculating currency with source,target
+		// and amount information
 		if (rates.getSuccess()) {
 
 			BigDecimal sourceCurrency = rates.getRates().get(request.getSource().getCode());
 			BigDecimal targetCurrency = rates.getRates().get(request.getTarget().getCode());
-			BigDecimal divideResult = targetCurrency.divide(sourceCurrency, RoundingMode.HALF_UP);
+
+			BigDecimal divideResult = targetCurrency.divide(sourceCurrency, 4, RoundingMode.CEILING);
 
 			responseCurrencyExchange.setConvertedValue(divideResult.multiply(request.getAmount()));
 			cache.cacheRate(rateKey.toString(), divideResult);
 		} else {
-			//if calling web service is fail then setting error code and desc and converted value setting with zero.
+			// if calling web service is fail then setting error code and desc and converted
+			// value setting with zero.
 			Error error = rates.getError();
 			responseCurrencyExchange.setCode(error.getCode());
 			responseCurrencyExchange.setMessage(error.getMessage());
