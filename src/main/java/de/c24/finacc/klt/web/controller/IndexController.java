@@ -1,7 +1,5 @@
 package de.c24.finacc.klt.web.controller;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,12 +46,11 @@ public class IndexController {
 	 *
 	 * @param currencyModel CurrencyModel
 	 * @param model Model 
-	 * @param request HttpServletRequest
 	 * @return ResponseEntity<ResponseCurrencyExchange>
 	 */
 	@RequestMapping(value = "/convert", method = RequestMethod.POST)
-	public ResponseEntity<ResponseCurrencyExchange> convertCurrencySourceToTarget(
-			@ModelAttribute CurrencyModel currencyModel, Model model, HttpServletRequest request) {
+	protected ResponseEntity<ResponseCurrencyExchange> convertCurrencySourceToTarget(
+			@ModelAttribute CurrencyModel currencyModel, Model model) {
 
 		HttpStatus httpStatus = HttpStatus.OK;
 
